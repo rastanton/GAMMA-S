@@ -371,15 +371,15 @@ def Match_Start_Stop_Finder(PSL_Line):
 def Match_Line(PSL_line, genome_gene, gene, verbose):
     List1 = PSL_line.split('\t')
     BP_Changes = Mutant_Count(genome_gene, gene)
+    Type = 'Mutant'
+    Description = Mutant_Info(genome_gene, gene)
     if BP_Changes == 0:
         Type = 'Native'
         Description = 'Exact match'
-    elif BP_Changes < 10 or verbose == True:
+    elif verbose == True:
         Description = Mutant_Info(genome_gene, gene)
-        Type = 'Mutant'
     elif BP_Changes > 10 and verbose == False:
         Description = str(BP_Changes) + ' mutations'
-        Type = 'Mutant'
     Start = List1[11]
     Stop = List1[12]
     Transversions = Transversion_Count(genome_gene, gene)
@@ -393,7 +393,7 @@ def Partial_Line(PSL_line, genome_gene, gene, verbose):
     if BP_Changes == 0:
         Type = 'Partial'
         Description = 'No mutations for bp ' + List1[15] + '-' + List1[16] + ' of '  + List1[14]
-    elif BP_Changes < 10 or verbose == True:
+    elif BP_Changes <= 10 or verbose == True:
         Description = Mutant_Info_Offset(genome_gene, gene, int(List1[15]))
         Description = Description + ' for bp ' + List1[15] + '-' + List1[16] + ' of '  + List1[14]
         Type = 'Partial (Mutant)'
@@ -416,7 +416,7 @@ def Edge_Line(PSL_line, genome_gene, gene, verbose):
     if BP_Changes == 0:
         Type = 'Contig Edge'
         Description = 'No mutations for bp ' + List1[15] + '-' + List1[16] + ' of '  + List1[14]
-    elif BP_Changes < 10 or verbose == True:
+    elif BP_Changes <= 10 or verbose == True:
         Description = Mutant_Info_Offset(genome_gene, gene, int(List1[15]))
         Description = Description + ' for bp ' + List1[15] + '-' + List1[16] + ' of '  + List1[14]
         Type = 'Contig Edge (Mutant)'
@@ -442,7 +442,7 @@ def Indel_Line(PSL_line, genome_gene, gene, verbose):
     if len(Mutant_List) == 0:
         Type = 'Indel'
         Description = 'No mutations, ' + Indel_Info_String
-    elif len(Mutant_List) < 10 or verbose == True:
+    elif len(Mutant_List) <= 10 or verbose == True:
         Description = Indel_BP_String(PSL_line, genome_gene, gene)
         Description = Description + ', ' + Indel_Info_String
         Type = 'Indel'
@@ -470,7 +470,7 @@ def Indel_Partial_Line(PSL_line, genome_gene, gene, verbose):
     if len(Mutant_List) == 0:
         Type = 'Indel (Partial)'
         Description = 'No mutations, ' + Indel_Info_String + ', for bp ' + List1[15] + '-' + List1[16] + ' of '  + List1[14]
-    elif len(Mutant_List) < 10 or verbose == True:
+    elif len(Mutant_List) <= 10 or verbose == True:
         Description = Indel_BP_String(PSL_line, genome_gene, gene)
         Description = Description + ', ' + Indel_Info_String + ', for bp ' + List1[15] + '-' + List1[16] + ' of '  + List1[14]
         Type = 'Indel (Partial)'
@@ -498,7 +498,7 @@ def Indel_Edge_Line(PSL_line, genome_gene, gene, verbose):
     if len(Mutant_List) == 0:
         Type = 'Indel (Contig Edge)'
         Description = 'No mutations, ' + Indel_Info_String + ', for bp ' + List1[15] + '-' + List1[16] + ' of '  + List1[14]
-    elif len(Mutant_List) < 10 or verbose == True:
+    elif len(Mutant_List) <= 10 or verbose == True:
         Description = Indel_BP_String(PSL_line, genome_gene, gene)
         Description = Description + ', ' + Indel_Info_String + ', for bp ' + List1[15] + '-' + List1[16] + ' of '  + List1[14]
         Type = 'Indel (Contig Edge)'
@@ -548,7 +548,7 @@ def Line_Lister(PSL, genome_fasta, gene_fasta, verbose):
             Out = Indel_Partial_Line(line, genome, gene, verbose)
         elif Type == 'Indel/Contig Edge':
             Out = Indel_Edge_Line(line, genome, gene, verbose)
-##        print(Out)
+        print(Out)
         Output.append(Out)
     return Output
                         
