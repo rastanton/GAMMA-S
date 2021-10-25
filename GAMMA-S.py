@@ -548,7 +548,7 @@ def Line_Lister(PSL, genome_fasta, gene_fasta, verbose):
             Out = Indel_Partial_Line(line, genome, gene, verbose)
         elif Type == 'Indel/Contig Edge':
             Out = Indel_Edge_Line(line, genome, gene, verbose)
-        print(Out)
+##        print(Out)
         Output.append(Out)
     return Output
                         
