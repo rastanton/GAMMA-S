@@ -3,9 +3,9 @@ import Bio
 import glob
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-from Bio.Alphabet.IUPAC import unambiguous_dna
-from Bio.Seq import MutableSeq
-from Bio.Alphabet import IUPAC
+#from Bio.Alphabet.IUPAC import unambiguous_dna
+#from Bio.Seq import MutableSeq
+#from Bio.Alphabet import IUPAC
 from Bio import SeqIO
 import subprocess
 from operator import itemgetter
